@@ -9,24 +9,24 @@ fn main() {
     // collecting arguments as a vector
     let arguments: Vec<String> = env::args().collect();
 
-    // generating error if arguments length is less than 3, that means either pattern or at least one file path or both is not provided.
+    // generating error if arguments length is less than 3, that means either pattern or at least one file path or both are not provided.
     if arguments.len() < 3 {
         eprintln!(
-            "please provide valid arguments, either pattern or file path or both are missing!"
+            "please provide valid arguments, either pattern or at least one file path or both are missing!"
         );
         std::process::exit(1);
     }
-    // if argument length is equal to or greater than 3, then there can be one or more files and we will go forward and run program
+    // if argument length is equal to or greater than 3, then there can be one or more filepaths and we will go forward and run program
     else if arguments.len() >= 3 {
-        // collected pattern from provided argument
+        // borrowing 2nd argument that is pattern, from provided arguments.
         let pattern = &arguments[1];
 
         // initialising regex instance.
         let re = Regex::new(&pattern).unwrap();
 
-        // running for loop for each file one by one
+        // running for loop for each file one by one from 3rd argument (index - 2) upto last given argument.
         for i in 2..arguments.len() {
-            // so this is keep track of total number of count of matched patterns for each file.
+            // so this is to keep track of total number of count of matched patterns for each file.
             let mut match_count: i32 = 0;
 
             // displaying initial details and file number, i.e. detail of which file we are displaying currently.
@@ -34,16 +34,19 @@ fn main() {
             println!("File no. {}", i - 1);
             println!("--------------------------------------------------");
 
-            // we will assign refrence of each filepath argument to file path by it's index.
+            // we will assign refrence of each filepath argument to file path by index that is in current iteration.
             let file_path = match arguments.get(i) {
                 Some(path) => path,
                 None => {
-                    eprintln!("The file do not exists at given file path - {}", &arguments[i]);
+                    eprintln!(
+                        "Unable to find the file at given file path - {}",
+                        &arguments[i]
+                    );
                     continue;
                 }
             };
 
-            // we will open the given file and handle error if file don not exists.
+            // we will open the given file and handle error if file do not exists.
             let file = match File::open(file_path) {
                 Ok(o) => o,
                 Err(e) => {
@@ -58,7 +61,7 @@ fn main() {
             // we will read the given file with bufreader.
             let reader = BufReader::new(file);
 
-            // on successful getting to path and reading file, we will proceed to display user lines with matched patterns.
+            // on successfully getting to path and reading file, we will proceed to display user lines with matched patterns.
             println!("Lines with matched patterns: ");
             println!("--------------------------------------------------\n");
 
@@ -73,7 +76,7 @@ fn main() {
                             let highlight = re.replace_all(&content, |caps: &regex::Captures| {
                                 caps[0].red().bold().to_string()
                             });
-                            // index start from zero so while displaying line number of matched line i am using line_index + 1 to show actual line number of that line in that file.
+                            // index start from zero so while displaying line number of matched line i am using line_index + 1 to show actual line number of that line in that text file.
                             println!("{}. {}", (line_index + 1), highlight);
                             match_count += 1;
                         }
