@@ -32,7 +32,7 @@ fn main() {
             // so this is to keep track of total number of count of matched patterns for each file.
             let mut match_count = 0;
 
-            // displaying initial details and file number, i.e. detail of which file we are displaying currently.
+            // displaying initial details of a file with it's number, i.e. detail of which file we are displaying currently.
             println!("\n--------------------------------------------------");
             println!("File no. {}", i - 1);
             println!("--------------------------------------------------");
@@ -92,7 +92,7 @@ fn main() {
                 }
             }
 
-            // displaying ending details with total number of pattern matches and file number in which we are matching pattern.
+            // displaying ending details of a file with total number of pattern matches and file number in which we are matching pattern.
             println!("\n--------------------------------------------------");
             println!(
                 "Number of matched pattern in file: {} - {}",
@@ -105,6 +105,7 @@ fn main() {
             total_count += match_count;
         }
 
+        // displaying total number of matched patterns across all the file.
         println!("--------------------------------------------------");
         println!(
             "Total number of matched pattern in all files - {}",
