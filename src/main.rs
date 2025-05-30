@@ -24,10 +24,13 @@ fn main() {
         // initialising regex instance.
         let re = Regex::new(&pattern).unwrap();
 
+        // this will store total match count across all the files.
+        let mut total_count = 0;
+
         // running for loop for each file one by one from 3rd argument (index - 2) upto last given argument.
         for i in 2..arguments.len() {
             // so this is to keep track of total number of count of matched patterns for each file.
-            let mut match_count: i32 = 0;
+            let mut match_count = 0;
 
             // displaying initial details and file number, i.e. detail of which file we are displaying currently.
             println!("\n--------------------------------------------------");
@@ -97,6 +100,16 @@ fn main() {
                 match_count
             );
             println!("--------------------------------------------------\n");
+
+            // adding match count of one file to total count.
+            total_count += match_count;
         }
+
+        println!("\n--------------------------------------------------");
+        println!(
+            "Total number of matched pattern in all files combined - {}",
+            total_count
+        );
+        println!("--------------------------------------------------\n");
     }
 }
