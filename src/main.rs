@@ -95,7 +95,7 @@ fn main() {
             // displaying ending details with total number of pattern matches and file number in which we are matching pattern.
             println!("\n--------------------------------------------------");
             println!(
-                "Total number of matched pattern in file: {} - {}",
+                "Number of matched pattern in file: {} - {}",
                 i - 1,
                 match_count
             );
@@ -105,9 +105,9 @@ fn main() {
             total_count += match_count;
         }
 
-        println!("\n--------------------------------------------------");
+        println!("--------------------------------------------------");
         println!(
-            "Total number of matched pattern in all files combined - {}",
+            "Total number of matched pattern in all files - {}",
             total_count
         );
         println!("--------------------------------------------------\n");
